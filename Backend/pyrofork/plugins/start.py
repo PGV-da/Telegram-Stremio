@@ -17,10 +17,10 @@ async def send_start_message(client: Client, message: Message):
         base_url = SettingsManager.current().base_url
         addon_url = f"{base_url}/stremio/manifest.json"
 
-        #----- No subscription mode: owner-only, single personal token
+        #----- No subscription mode: single personal token
         if not SettingsManager.current().subscription:
-            if user_id != Telegram.OWNER_ID:
-                return
+            # if user_id != Telegram.OWNER_ID:
+            #     return
             user_name = (message.from_user.first_name or message.from_user.username or f"User {user_id}") if message.from_user else f"Chat {user_id}"
             try:
                 token_doc = await db.add_api_token(name=user_name, user_id=user_id)
